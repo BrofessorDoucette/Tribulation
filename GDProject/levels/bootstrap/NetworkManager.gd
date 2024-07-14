@@ -90,6 +90,9 @@ func _on_lobby_join_requested(lobby_id, friend_id):
 func _on_player_connected(id):
 	print("A player has connected. ID: " + str(id))
 	
+	if multiplayer.is_server():
+		_sceneManager.player_connected(id)
+	
 func _on_connected_ok():
 	print("Successfully Established Connection to Multiplayer Peer.")
 

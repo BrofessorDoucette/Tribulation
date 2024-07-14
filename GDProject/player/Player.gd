@@ -1,5 +1,6 @@
 extends CharacterBody3D
 
+class_name Player
 
 @export_category("Player Controller")
 @export var _mouseSensitivity = 5.0
@@ -30,6 +31,10 @@ func _ready():
 									_maxCameraOffsetMultiplier)
 									
 	_camera.position = _cameraOffset * _cameraOffsetMultiplier
+
+@rpc("call_remote", "reliable", "authority")
+func possess():
+	_camera.current = true
 
 func _input(event):
 	

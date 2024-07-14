@@ -12,8 +12,7 @@ var _currentScene : Node
 func start_game():
 	
 	change_scene(_startScene.instantiate())
-	add_player()
-	
+	add_player().possess()
 
 func change_scene(scene : Node):
 	
@@ -31,6 +30,11 @@ func change_scene(scene : Node):
 	_currentScene = scene
 	
 func add_player():
+	var player : Player = _playerScene.instantiate()
+	_currentScene.find_child("PlayerSpawn").add_child(player)
 	
-	_currentScene.find_child("PlayerSpawn").add_child(_playerScene.instantiate())
+	return player
 	
+func player_connected(id):
+	var player = add_player()
+	player.possess.rpc_id(id)

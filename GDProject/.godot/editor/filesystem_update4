@@ -7,3 +7,4 @@ res://levels/bootstrap/bootstrap.tscn
 res://levels/bootstrap/SceneManager.gd
 res://levels/main_menu/overlay.tscn
 res://levels/bootstrap/NetworkManager.gd
+res://player/Player.gd

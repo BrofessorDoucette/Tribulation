@@ -24,7 +24,7 @@ _playerScene = ExtResource("4_ywnnb")
 [node name="MainMenu" parent="SceneManager/NetworkSpawnPath" instance=ExtResource("1_5wv8t")]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SceneManager"]
-_spawnable_scenes = PackedStringArray("res://levels/dark_world_prototype/dark_world_prototype.tscn")
+_spawnable_scenes = PackedStringArray("res://levels/dark_world_prototype/dark_world_prototype.tscn", "res://player/Player.tscn")
 spawn_path = NodePath("../NetworkSpawnPath")
 
 [node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("_sceneManager")]
