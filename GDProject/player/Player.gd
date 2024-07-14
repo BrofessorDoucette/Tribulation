@@ -35,7 +35,6 @@ var _networkLatency = 0
 var _frame = 0
 var _framesBetweenRecords = 5
 var _framesBetweenLatencySync = 100
-@export var timeSpawned : int
 var positionRecords = []
 
 func _ready():
@@ -70,16 +69,16 @@ func sync_position(serverPosition):
 #func sync_rotation(serverRotationY):
 #	rotation.y = serverRotationY
 
-#@rpc("any_peer", "call_local", "unreliable")
-#func turn(mouseDeltaX):
+@rpc("any_peer", "call_local", "unreliable")
+func turn(mouseDeltaX):
 	
-#	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
+	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
 func _physics_process(delta):
 	
 	if not multiplayer.is_server():
 		if _frame % _framesBetweenLatencySync == 0:
-			request_server_time.rpc_id(1)
+			request_server_time.rpc_id(1, multiplayer.get_unique_id())
 		
 		
 	# Add the gravity.
@@ -104,7 +103,8 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, _moveSpeed)
 	
 	move_and_slide()
-
+	
+	_frame += 1
 	
 	
 	
