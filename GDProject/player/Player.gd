@@ -33,6 +33,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		playerID = id
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
+		
+var _frame = 0
+var _framesBetweenSync = 10
+
 
 func _ready():
 	
@@ -52,6 +56,7 @@ func turn(mouseDeltaX):
 
 @rpc("any_peer", "unreliable", "call_remote")
 func sync(newPosition, newVelocity, newRotationY):
+	print("Syncing new position for player: " + str(playerID))
 	_targetPosition = newPosition
 	_targetVelocity = newVelocity
 	_targetRotationY = newRotationY
@@ -59,6 +64,9 @@ func sync(newPosition, newVelocity, newRotationY):
 func _physics_process(delta):
 	
 	if playerID == multiplayer.get_unique_id():
+		
+		if _frame % _framesBetweenSync == 0:
+			sync.rpc(position, velocity, rotation.y)
 		
 		# Add the gravity.
 		if not is_on_floor():
