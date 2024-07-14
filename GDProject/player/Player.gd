@@ -67,9 +67,9 @@ func sync(newPosition, newVelocity, newRotationY):
 
 func _physics_process(delta):
 	
-	print(multiplayer.get_unique_id(), playerID)
-	
 	if playerID == multiplayer.get_unique_id():
+		
+		Camera.current = true
 		
 		if _frame % _framesBetweenSync == 0:
 			sync.rpc(position, velocity, rotation.y)
