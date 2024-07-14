@@ -31,10 +31,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
-var _networkLatency = 0
+var NetworkTimeSynchronizer : TimeSynchronizer
+
 var _frame = 0
 var _framesBetweenRecords = 5
-var _framesBetweenLatencySync = 100
 var positionRecords = []
 
 func _ready():
@@ -48,14 +48,6 @@ func _ready():
 										MaxCameraOffsetMultiplier)
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
-		
-@rpc("authority", "call_remote", "reliable")
-func update_server_time(time):
-	print("Server time: " + str(time))
-	
-@rpc("any_peer", "call_remote", "unreliable")
-func request_server_time(id):
-	update_server_time.rpc_id(id, Time.get_ticks_usec())
 
 @rpc("authority", "call_local", "unreliable")
 func sync_position(serverPosition):
@@ -76,11 +68,9 @@ func turn(mouseDeltaX):
 
 func _physics_process(delta):
 	
-	if not multiplayer.is_server():
-		if _frame % _framesBetweenLatencySync == 0:
-			request_server_time.rpc_id(1, multiplayer.get_unique_id())
-		
-		
+	if _frame % 120 == 0:
+		print("Server Time: " + str(NetworkTimeSynchronizer.serverTime))
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -105,7 +95,6 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	_frame += 1
-	
 	
 	
 	
