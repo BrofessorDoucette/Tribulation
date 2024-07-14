@@ -9,3 +9,4 @@ res://levels/bootstrap/bootstrap.tscn
 res://levels/bootstrap/SceneManager.gd
 res://levels/bootstrap/Bootstrap.gd
 res://levels/bootstrap/NetworkManager.gd
+res://player/Player.gd

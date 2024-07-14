@@ -61,7 +61,13 @@ func _input(event):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			
+	if Input.is_action_pressed("RpcTest"):
+		eatShit.rpc()
 		
+@rpc("authority", "call_remote", "reliable")
+func eatShit():
+	print("Eat shit")
 
 func _process(delta):
 	
