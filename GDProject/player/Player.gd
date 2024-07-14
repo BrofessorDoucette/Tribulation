@@ -3,22 +3,22 @@ extends CharacterBody3D
 class_name Player
 
 @export_category("Player Controller")
-@export var _mouseSensitivity = 5.0
+@export var MouseSensitivity = 5.0
 @export var _walkSpeed = 5.0
 @export var _runSpeed = 10.0
 @export var _jumpVelocity = 4.5
 var _moveSpeed = 0
 
 @export_category("Camera")
-@export var _cameraPivot : Node3D
-@export var _camera : Camera3D
+@export var CameraPivot : Node3D
+@export var Camera : Camera3D
 @export var _rayCast : RayCast3D
-@export var _cameraOffset : Vector3
-@export var _defaultCameraOffsetMultiplier : float
-@export var _minCameraOffsetMultiplier : float
-@export var _maxCameraOffsetMultiplier : float
-@export var _cameraOffsetIncrement : float
-var _cameraOffsetMultiplier : float
+@export var CameraOffset : Vector3
+@export var DefaultCameraOffsetMultiplier : float
+@export var MinCameraOffsetMultiplier : float
+@export var MaxCameraOffsetMultiplier : float
+@export var CameraOffsetIncrement : float
+var CameraOffsetMultiplier : float
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -35,60 +35,23 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	
 	if playerID == multiplayer.get_unique_id():
-		_camera.current = true
+		Camera.current = true
 	
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		_cameraOffsetMultiplier = clamp(_defaultCameraOffsetMultiplier,
-										_minCameraOffsetMultiplier,
-										_maxCameraOffsetMultiplier)
+		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
+										MinCameraOffsetMultiplier,
+										MaxCameraOffsetMultiplier)
 										
-		_camera.position = _cameraOffset * _cameraOffsetMultiplier
-		
-		set_process_input(true)
-	
-	else:
-		
-		set_process_input(false)
+		Camera.position = CameraOffset * CameraOffsetMultiplier
 
 @rpc("call_remote", "reliable", "authority")
 func possess():
-	_camera.current = true
+	Camera.current = true
 
-func _input(event):
+@rpc("call_local", "unreliable")
+func mouse_motion(mouseDelta):
 	
-	if event is InputEventMouseMotion:
-		
-		if not Input.is_action_pressed("FreeLook"):
-			rotate_y(-1 * _mouseSensitivity * deg_to_rad(event.relative.x))
-			_cameraPivot.rotate(Vector3.RIGHT, -1 * _mouseSensitivity * deg_to_rad(event.relative.y))
-		else:
-			_cameraPivot.rotate(Vector3.UP, -1 * _mouseSensitivity * deg_to_rad(event.relative.x))
-		
-		_camera.position = _cameraOffset * _cameraOffsetMultiplier
-	
-	if Input.is_action_pressed("CameraZoomIn"):
-		_cameraOffsetMultiplier = clamp(_cameraOffsetMultiplier - _cameraOffsetIncrement,
-										_minCameraOffsetMultiplier,
-										_maxCameraOffsetMultiplier)
-	
-	if Input.is_action_pressed("CameraZoomOut"):
-		_cameraOffsetMultiplier = clamp(_cameraOffsetMultiplier + _cameraOffsetIncrement,
-										_minCameraOffsetMultiplier,
-										_maxCameraOffsetMultiplier)
-	
-	_camera.position = _cameraOffset * _cameraOffsetMultiplier
-	
-	if Input.is_action_pressed("ToggleFullscreen"):
-		
-		if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		else:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-
-func _process(delta):
-	
-	if not Input.is_action_pressed("FreeLook"):
-		_cameraPivot.rotation = Vector3(clamp(_cameraPivot.rotation.x, -PI/2, PI/2), 0, 0)
+	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDelta.x))
 
 func _physics_process(delta):
 	
@@ -115,3 +78,9 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, _moveSpeed)
 	
 	move_and_slide()
+	
+	
+	
+	
+	
+	

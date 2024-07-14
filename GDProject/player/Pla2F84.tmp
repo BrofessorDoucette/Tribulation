@@ -33,17 +33,17 @@ properties/2/path = NodePath("PlayerInput:jumping")
 properties/2/spawn = true
 properties/2/replication_mode = 2
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("CameraPivot", "Camera", "_rayCast")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_cameraPivot", "_camera", "_rayCast")]
 script = ExtResource("1_jki30")
-MouseSensitivity = 0.4
-CameraPivot = NodePath("CameraPivot")
-Camera = NodePath("CameraPivot/Camera")
+_mouseSensitivity = 0.4
+_cameraPivot = NodePath("CameraPivot")
+_camera = NodePath("CameraPivot/Camera")
 _rayCast = NodePath("CameraPivot/Camera/RayCast")
-CameraOffset = Vector3(0.617, 0.271, 1.343)
-DefaultCameraOffsetMultiplier = 1.0
-MinCameraOffsetMultiplier = 0.5
-MaxCameraOffsetMultiplier = 2.0
-CameraOffsetIncrement = 0.1
+_cameraOffset = Vector3(0.617, 0.271, 1.343)
+_defaultCameraOffsetMultiplier = 1.0
+_minCameraOffsetMultiplier = 0.5
+_maxCameraOffsetMultiplier = 2.0
+_cameraOffsetIncrement = 0.1
 
 [node name="Imported" parent="." instance=ExtResource("1_vyp1u")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -64,9 +64,8 @@ target_position = Vector3(0, 0, -3)
 [node name="TransformSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_epx64")
 
-[node name="PlayerInput" type="MultiplayerSynchronizer" parent="." node_paths=PackedStringArray("_player")]
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_y6jru")
 script = ExtResource("3_6s5hy")
-_player = NodePath("..")
 
 [editable path="Imported"]
