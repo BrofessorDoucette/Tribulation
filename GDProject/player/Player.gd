@@ -31,6 +31,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
+var frame = 0
 
 func _ready():
 	
@@ -44,6 +45,10 @@ func _ready():
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
 
+@rpc("authority", "call_remote", "unreliable")
+func sync_position(serverPosition):
+	position = serverPosition
+
 @rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
 	
@@ -51,6 +56,9 @@ func turn(mouseDeltaX):
 
 func _physics_process(delta):
 	
+	if frame % 100 == 0:
+		if multiplayer.is_server():
+			sync_position(position)
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -75,6 +83,7 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
+	frame += 1
 	
 	
 	
