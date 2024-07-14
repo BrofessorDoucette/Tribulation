@@ -62,9 +62,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.617, 0.271, 1.343)
 target_position = Vector3(0, 0, -3)
 
 [node name="TransformSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.01
 replication_config = SubResource("SceneReplicationConfig_epx64")
 
 [node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_interval = 0.001
 replication_config = SubResource("SceneReplicationConfig_y6jru")
 script = ExtResource("3_6s5hy")
 
