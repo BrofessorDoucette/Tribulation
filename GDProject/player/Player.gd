@@ -31,12 +31,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
-@export var _serverTime : int = 0
-
 var _frame = 0
 var _framesBetweenRecords = 1
-var _framesBetweenSyncRequest = 15
-var _timesRecorded = []
+var _framesBetweenSyncRequest = 5
+var _seqRecorded = []
 var _positionsRecorded = []
 var _rotationYRecorded = []
 var _velocitiesRecorded = []
@@ -57,27 +55,17 @@ func _ready():
 	
 
 @rpc("authority", "call_remote", "unreliable")
-func sync(serverTime, serverPosition, serverRotationY, serverVelocity):
+func sync(seq, serverPosition, serverRotationY, serverVelocity):
 	
-	if len(_timesRecorded) == 0:
+	if len(_seqRecorded) == 0:
 		return
 	
-	var latencyEstimated = serverTime - _serverTime
-	
-	print("Estimated Latency: " + str(latencyEstimated))
-	print("Client time requested: " + str(_serverTime - latencyEstimated))
-	print("Latest time recorded: " + str(_timesRecorded[-1]))
-	print("Earliest time record: " + str(_timesRecorded[0]))
-	
-	var closest_index = _timesRecorded.bsearch(_serverTime - latencyEstimated)
-	if closest_index == len(_timesRecorded):
-		return
-	
+	var closest_index = _seqRecorded.bsearch(seq)
 	var historicalPosition = _positionsRecorded[closest_index]
 	var historicalRotationY = _rotationYRecorded[closest_index]
 	var historicalVelocity = _velocitiesRecorded[closest_index]
 	
-	print(serverPosition, historicalPosition)
+	print(seq, serverPosition, _seqRecorded[closest_index], historicalPosition)
 	
 	var dP = position - historicalPosition
 	var dR = rotation.y - historicalRotationY
@@ -93,22 +81,15 @@ func turn(mouseDeltaX):
 	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
 func _physics_process(delta):
-	
-	if multiplayer.is_server():
-		_serverTime = Time.get_ticks_usec()
-	
-	if _frame % 120 == 0:
-		if playerID == multiplayer.get_unique_id():
-			print("Server Time: " + str(_serverTime))
 			
-	_timesRecorded.append(_serverTime)
+	_seqRecorded.append($PlayerInput.seq)
 	_positionsRecorded.append(position)
 	_rotationYRecorded.append(rotation.y)
 	_velocitiesRecorded.append(velocity)
 		
 	if multiplayer.is_server():
-		if _frame % (_framesBetweenSyncRequest) == 1:
-			sync.rpc(_serverTime, position, rotation.y, velocity)
+		if _frame % (_framesBetweenSyncRequest) == 0:
+			sync.rpc($PlayerInput.seq, position, rotation.y, velocity)
 
 	# Add the gravity.
 	if not is_on_floor():

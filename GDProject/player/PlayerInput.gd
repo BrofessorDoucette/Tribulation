@@ -9,6 +9,8 @@ extends MultiplayerSynchronizer
 # Synchronized property.
 @export var direction := Vector2()
 
+@export var seq : int = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -64,3 +66,5 @@ func _physics_process(delta):
 		running = false
 	
 	direction = Input.get_vector("StrafeLeft", "StrafeRight", "StrafeForward", "StrafeBackward")
+	
+	seq += 1
