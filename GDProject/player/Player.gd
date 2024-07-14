@@ -60,6 +60,9 @@ func sync(serverTime, serverPosition, serverRotationY):
 	var historicalPosition = _positionsRecorded[closest_index]
 	var historicalRotationY = _rotationYRecorded[closest_index]
 	
+	print("Server time requested: " + str(serverTime))
+	print("Latest time recorded: " + str(_timesRecorded[-1]))
+	
 	var dP = serverPosition - historicalPosition
 	var dR = serverRotationY - historicalRotationY
 	
@@ -86,7 +89,7 @@ func _physics_process(delta):
 		_rotationYRecorded.append(rotation.y)
 		
 	if multiplayer.is_server():
-		if _frame % _framesBetweenSyncRequest == 0:
+		if _frame % _framesBetweenSyncRequest == 1:
 			sync.rpc(_serverTime, position, rotation.y)
 
 	# Add the gravity.
