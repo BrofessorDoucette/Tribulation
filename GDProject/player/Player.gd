@@ -35,7 +35,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		$PlayerInput.set_multiplayer_authority(id)
 		
 var _frame = 0
-var _framesBetweenSync = 10
+var _framesBetweenSync = 5
 
 
 func _ready():
@@ -93,9 +93,9 @@ func _physics_process(delta):
 	
 	else:
 		
-		position = lerp(position, _targetPosition, 0.1)
-		velocity = lerp(velocity, _targetVelocity, 0.1)
-		rotation.y = lerp(rotation.y, _targetRotationY, 0.1)
+		position = lerp(position, _targetPosition, 0.3)
+		velocity = lerp(velocity, _targetVelocity, 0.3)
+		rotation.y = lerp(rotation.y, _targetRotationY, 0.3)
 	
 	
 	
