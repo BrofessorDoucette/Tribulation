@@ -39,6 +39,7 @@ var _framesBetweenSyncRequest = 15
 var _timesRecorded = []
 var _positionsRecorded = []
 var _rotationYRecorded = []
+var _velocitiesRecorded = []
 
 func _ready():
 	
@@ -56,7 +57,7 @@ func _ready():
 	
 
 @rpc("authority", "call_remote", "unreliable")
-func sync(serverTime, serverPosition, serverRotationY):
+func sync(serverTime, serverPosition, serverRotationY, serverVelocity):
 	
 	if len(_timesRecorded) == 0:
 		return
@@ -70,19 +71,21 @@ func sync(serverTime, serverPosition, serverRotationY):
 	
 	var closest_index = _timesRecorded.bsearch(_serverTime - latencyEstimated)
 	if closest_index == len(_timesRecorded):
-	
 		return
 	
 	var historicalPosition = _positionsRecorded[closest_index]
 	var historicalRotationY = _rotationYRecorded[closest_index]
+	var historicalVelocity = _velocitiesRecorded[closest_index]
 	
 	print(serverPosition, historicalPosition)
 	
 	var dP = position - historicalPosition
 	var dR = rotation.y - historicalRotationY
+	var dV = velocity - historicalVelocity
 	
 	position = serverPosition + dP
 	rotation.y = serverRotationY + dR
+	velocity = serverVelocity + dV
 
 @rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
@@ -101,10 +104,11 @@ func _physics_process(delta):
 	_timesRecorded.append(_serverTime)
 	_positionsRecorded.append(position)
 	_rotationYRecorded.append(rotation.y)
+	_velocitiesRecorded.append(velocity)
 		
 	if multiplayer.is_server():
 		if _frame % (_framesBetweenSyncRequest) == 1:
-			sync.rpc(_serverTime, position, rotation.y)
+			sync.rpc(_serverTime, position, rotation.y, velocity)
 
 	# Add the gravity.
 	if not is_on_floor():

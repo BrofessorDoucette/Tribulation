@@ -1,8 +1,2 @@
-res://levels/dark_world_prototype/terrain/terrain.res
-res://levels/dark_world_prototype/dark_world_prototype.tscn
 res://player/Player.tscn
-res://levels/main_menu/main_menu.tscn
-res://levels/main_menu/background.tscn
-res://levels/bootstrap/bootstrap.tscn
-res://levels/main_menu/overlay.tscn
 res://player/Player.gd
