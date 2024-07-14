@@ -31,8 +31,12 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
+var _networkLatency = 0
 var _frame = 0
-var _framesBetweenSyncs = 30
+var _framesBetweenRecords = 5
+var _framesBetweenLatencySync = 100
+@export var timeSpawned : int
+var positionRecords = []
 
 func _ready():
 	
@@ -45,31 +49,39 @@ func _ready():
 										MaxCameraOffsetMultiplier)
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
+		
+@rpc("authority", "call_remote", "reliable")
+func update_server_time(time):
+	print("Server time: " + str(time))
+	
+@rpc("any_peer", "call_remote", "unreliable")
+func request_server_time(id):
+	update_server_time.rpc_id(id, Time.get_ticks_usec())
 
 @rpc("authority", "call_local", "unreliable")
 func sync_position(serverPosition):
 	position = serverPosition
 	
-@rpc("authority", "call_local", "unreliable")
-func sync_velocity(serverVelocity):
-	velocity = serverVelocity
+#@rpc("authority", "call_local", "unreliable")
+#func sync_velocity(serverVelocity):
+#	velocity = serverVelocity
 	
-@rpc("authority", "call_local", "unreliable")
-func sync_rotation(serverRotationY):
-	rotation.y = serverRotationY
+#@rpc("authority", "call_local", "unreliable")
+#func sync_rotation(serverRotationY):
+#	rotation.y = serverRotationY
 
-@rpc("any_peer", "call_local", "unreliable")
-func turn(mouseDeltaX):
+#@rpc("any_peer", "call_local", "unreliable")
+#func turn(mouseDeltaX):
 	
-	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
+#	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
 func _physics_process(delta):
 	
-	if _frame % _framesBetweenSyncs == 0:
-		if multiplayer.is_server():
-			sync_position.rpc(position)
-			sync_rotation.rpc(rotation.y)
-	
+	if not multiplayer.is_server():
+		if _frame % _framesBetweenLatencySync == 0:
+			request_server_time.rpc_id(1)
+		
+		
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -92,8 +104,7 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, _moveSpeed)
 	
 	move_and_slide()
-	
-	_frame += 1
+
 	
 	
 	
