@@ -8,6 +8,9 @@ class_name Player
 @export var _runSpeed = 10.0
 @export var _jumpVelocity = 4.5
 var _moveSpeed = 0
+var _targetPosition : Vector3 = Vector3(0,0,0)
+var _targetVelocity : Vector3 = Vector3(0,0,0)
+var _targetRotationY : float = 0
 
 @export_category("Camera")
 @export var CameraPivot : Node3D
@@ -47,6 +50,12 @@ func turn(mouseDeltaX):
 	
 	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
+@rpc("any_peer", "unreliable", "call_remote")
+func sync(newPosition, newVelocity, newRotationY):
+	_targetPosition = newPosition
+	_targetVelocity = newVelocity
+	_targetRotationY = newRotationY
+
 func _physics_process(delta):
 	
 	if playerID == multiplayer.get_unique_id():
@@ -74,6 +83,11 @@ func _physics_process(delta):
 		
 		move_and_slide()
 	
+	else:
+		
+		position = lerp(position, _targetPosition, 0.1)
+		velocity = lerp(velocity, _targetVelocity, 0.1)
+		rotation.y = lerp(rotation.y, _targetRotationY, 0.1)
 	
 	
 	
