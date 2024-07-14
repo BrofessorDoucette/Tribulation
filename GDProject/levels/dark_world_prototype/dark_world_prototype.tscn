@@ -1,6 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://dpgubgnmiabow"]
+[gd_scene load_steps=26 format=3 uid="uid://dpgubgnmiabow"]
 
 [ext_resource type="Terrain3DStorage" uid="uid://c21vsguvwn26x" path="res://levels/dark_world_prototype/terrain/terrain.res" id="1_s37ca"]
+[ext_resource type="Script" path="res://levels/dark_world_prototype/dark_world_prototype.gd" id="1_tuq1v"]
+[ext_resource type="PackedScene" uid="uid://c87tjohvhe6k1" path="res://player/Player.tscn" id="2_07y53"]
 [ext_resource type="Texture2D" uid="uid://00i2p6x7orax" path="res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_packed_albedo.png" id="2_qr8bd"]
 [ext_resource type="Texture2D" uid="uid://bcngb2adhw4ih" path="res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_Normal.png" id="3_wrjud"]
 [ext_resource type="Texture2D" uid="uid://be6jwjwcen067" path="res://levels/dark_world_prototype/terrain/textures/grass_1/grass_1_packed_albedo.png" id="4_aglua"]
@@ -111,6 +113,8 @@ fog_light_energy = 0.01
 volumetric_fog_density = 0.005
 
 [node name="WorldRoot" type="Node3D"]
+script = ExtResource("1_tuq1v")
+_playerScene = ExtResource("2_07y53")
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("1_s37ca")
@@ -127,5 +131,10 @@ transform = Transform3D(1, 0, 0, 0, 0.720975, 0.692962, 0, -0.692962, 0.720975, 
 shadow_enabled = true
 directional_shadow_max_distance = 500.0
 
-[node name="PlayerSpawn" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.5971, 170.399)
+[node name="Players" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 73.425, 170.399)
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player/Player.tscn")
+spawn_path = NodePath("../Players")
+spawn_limit = 4

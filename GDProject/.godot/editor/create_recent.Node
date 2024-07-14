@@ -1,5 +1,6 @@
-Node3D
 MultiplayerSpawner
+MultiplayerSynchronizer
+Node3D
 Node
 ColorRect
 Panel
@@ -11,4 +12,3 @@ VBoxContainer
 RayCast3D
 Camera3D
 OmniLight3D
-PointLight2D

@@ -1,6 +1,8 @@
 extends HBoxContainer
 
 @export var _startScene : PackedScene
+@export var _levelManager : LevelManager
+@export var _networkManager: NetworkManager
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,5 +15,9 @@ func _process(delta):
 
 
 func _on_start_pressed():
-	var scene_manager : SceneManager = get_tree().root.get_node("Bootstrap/SceneManager")
-	scene_manager.start_game()
+	
+	if _networkManager.is_online:
+		_networkManager.create_lobby()
+		
+	_levelManager.start_game()
+	

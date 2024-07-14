@@ -13,28 +13,28 @@ _networkManager = NodePath("NetworkManager")
 
 [node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://levels/dark_world_prototype/dark_world_prototype.tscn")
-spawn_path = NodePath("../LevelManager/Level")
+spawn_path = NodePath("../LevelManager/NetworkSpawnPath")
 
-[node name="LevelManager" type="Node" parent="." node_paths=PackedStringArray("_multiplayerSpawner", "_networkManager", "_networkSpawnPath")]
+[node name="LevelManager" type="Node" parent="." node_paths=PackedStringArray("_networkManager", "_networkSpawnPath", "_multiplayerSpawner")]
 script = ExtResource("1_nh5kf")
-_multiplayerSpawner = NodePath("../LevelSpawner")
 _networkManager = NodePath("../NetworkManager")
-_networkSpawnPath = NodePath("Level")
+_networkSpawnPath = NodePath("NetworkSpawnPath")
+_multiplayerSpawner = NodePath("../LevelSpawner")
 _startScene = ExtResource("3_05jh2")
 _playerScene = ExtResource("4_ywnnb")
 
-[node name="Level" type="Node" parent="LevelManager"]
+[node name="NetworkSpawnPath" type="Node" parent="LevelManager"]
 
-[node name="MainMenu" parent="LevelManager/Level" instance=ExtResource("1_5wv8t")]
+[node name="MainMenu" parent="LevelManager/NetworkSpawnPath" instance=ExtResource("1_5wv8t")]
 
-[node name="Overlay" parent="LevelManager/Level/MainMenu" index="1" node_paths=PackedStringArray("_levelManager", "_networkManager")]
+[node name="Overlay" parent="LevelManager/NetworkSpawnPath/MainMenu" index="1" node_paths=PackedStringArray("_levelManager", "_networkManger")]
 _startScene = ExtResource("3_05jh2")
 _levelManager = NodePath("../../..")
-_networkManager = NodePath("../../../../NetworkManager")
+_networkManger = NodePath("../../../../NetworkManager")
 
 [node name="NetworkManager" type="Node" parent="."]
 script = ExtResource("4_h345w")
 _debug = true
 _maxLobbySize = 4
 
-[editable path="LevelManager/Level/MainMenu"]
+[editable path="LevelManager/NetworkSpawnPath/MainMenu"]

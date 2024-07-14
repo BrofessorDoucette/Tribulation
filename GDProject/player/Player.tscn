@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c87tjohvhe6k1"]
+[gd_scene load_steps=5 format=3 uid="uid://c87tjohvhe6k1"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_jki30"]
 [ext_resource type="PackedScene" uid="uid://804vkkkkxmu4" path="res://player/BasicCharacter_Rigged_Animated_Painted.glb" id="1_vyp1u"]
@@ -6,6 +6,20 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yohb"]
 radius = 0.2
 height = 1.5
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_epx64"]
+properties/0/path = NodePath(".:playerID")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_cameraPivot", "_camera", "_rayCast")]
 script = ExtResource("1_jki30")
@@ -34,5 +48,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.617, 0.271, 1.343)
 
 [node name="RayCast" type="RayCast3D" parent="CameraPivot/Camera"]
 target_position = Vector3(0, 0, -3)
+
+[node name="TransformSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_epx64")
 
 [editable path="Imported"]

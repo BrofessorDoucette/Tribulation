@@ -23,6 +23,15 @@ var _cameraOffsetMultiplier : float
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+#Networking
+# Set by the authority, synchronized on spawn.
+@export var playerID := 1 :
+	set(id):
+		playerID = id
+		# Give authority over the player input to the appropriate peer.
+		#$PlayerInput.set_multiplayer_authority(id)
+
+
 func _ready():
 	
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

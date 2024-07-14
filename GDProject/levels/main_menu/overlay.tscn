@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmnns6oji125y"]
 
-[ext_resource type="Script" path="res://levels/main_menu/MainMenu.gd" id="1_wp0et"]
+[ext_resource type="Script" path="res://levels/main_menu/OverlayMainMenu.gd" id="1_hltko"]
 [ext_resource type="PackedScene" uid="uid://dpgubgnmiabow" path="res://levels/dark_world_prototype/dark_world_prototype.tscn" id="2_ohxgs"]
 
 [node name="Overlay" type="HBoxContainer"]
@@ -9,7 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wp0et")
+script = ExtResource("1_hltko")
 _startScene = ExtResource("2_ohxgs")
 
 [node name="Left" type="VBoxContainer" parent="."]
