@@ -112,10 +112,9 @@ fog_light_color = Color(0.595178, 0.628666, 0.681288, 1)
 fog_light_energy = 0.01
 volumetric_fog_density = 0.005
 
-[node name="WorldRoot" type="Node3D" node_paths=PackedStringArray("_timeSynchronizer")]
+[node name="WorldRoot" type="Node3D"]
 script = ExtResource("1_tuq1v")
 _playerScene = ExtResource("2_07y53")
-_timeSynchronizer = NodePath("")
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("1_s37ca")

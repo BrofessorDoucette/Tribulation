@@ -4,14 +4,5 @@ res://player/Player.tscn
 res://levels/main_menu/main_menu.tscn
 res://levels/main_menu/background.tscn
 res://levels/bootstrap/bootstrap.tscn
-res://levels/bootstrap/SceneManager.gd
 res://levels/main_menu/overlay.tscn
-res://levels/bootstrap/NetworkManager.gd
 res://player/Player.gd
-res://levels/bootstrap/Bootstrap.gd
-res://levels/bootstrap/LevelManager.gd
-res://levels/main_menu/MainMenu.gd
-res://levels/main_menu/OverlayMainMenu.gd
-res://levels/dark_world_prototype/dark_world_prototype.gd
-res://player/PlayerInput.gd
-res://levels/dark_world_prototype/TimeSynchronizer.gd

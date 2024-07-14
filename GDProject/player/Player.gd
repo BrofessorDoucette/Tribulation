@@ -34,8 +34,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var _serverTime : int = 0
 
 var _frame = 0
-var _framesBetweenRecords = 5
-var _framesBetweenSyncRequest = 60
+var _framesBetweenRecords = 1
+var _framesBetweenSyncRequest = 15
 var _timesRecorded = []
 var _positionsRecorded = []
 var _rotationYRecorded = []
@@ -58,22 +58,31 @@ func _ready():
 @rpc("authority", "call_remote", "unreliable")
 func sync(serverTime, serverPosition, serverRotationY):
 	
-	var latencyEstimated = _serverTime - serverTime
+	if len(_timesRecorded) == 0:
+		return
 	
-	print("Estimated Latency in milliseconds: " + latencyEstimated / 1000)
-	print("Server time requested: " + str(serverTime))
+	var latencyEstimated = serverTime - _serverTime
+	
+	print("Estimated Latency: " + str(latencyEstimated))
+	print("Client time requested: " + str(_serverTime - latencyEstimated))
 	print("Latest time recorded: " + str(_timesRecorded[-1]))
 	print("Earliest time record: " + str(_timesRecorded[0]))
 	
-	var closest_index = _timesRecorded.bsearch(serverTime - latencyEstimated)
+	var closest_index = _timesRecorded.bsearch(_serverTime - latencyEstimated)
+	if closest_index == len(_timesRecorded):
+	
+		return
+	
 	var historicalPosition = _positionsRecorded[closest_index]
 	var historicalRotationY = _rotationYRecorded[closest_index]
 	
-	var dP = serverPosition - historicalPosition
-	var dR = serverRotationY - historicalRotationY
+	print(serverPosition, historicalPosition)
 	
-	position = position - dP
-	rotation.y = serverRotationY - dR
+	var dP = position - historicalPosition
+	var dR = rotation.y - historicalRotationY
+	
+	position = serverPosition + dP
+	rotation.y = serverRotationY + dR
 
 @rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
@@ -89,13 +98,12 @@ func _physics_process(delta):
 		if playerID == multiplayer.get_unique_id():
 			print("Server Time: " + str(_serverTime))
 			
-	if _frame % _framesBetweenRecords == 0:
-		_timesRecorded.append(_serverTime)
-		_positionsRecorded.append(position)
-		_rotationYRecorded.append(rotation.y)
+	_timesRecorded.append(_serverTime)
+	_positionsRecorded.append(position)
+	_rotationYRecorded.append(rotation.y)
 		
 	if multiplayer.is_server():
-		if _frame % _framesBetweenSyncRequest == 1:
+		if _frame % (_framesBetweenSyncRequest) == 1:
 			sync.rpc(_serverTime, position, rotation.y)
 
 	# Add the gravity.
