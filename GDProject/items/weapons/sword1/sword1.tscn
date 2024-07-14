@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://m481y1yeh20k"]
+
+[ext_resource type="PackedScene" uid="uid://5o84elniukao" path="res://items/weapons/sword1/sword1.glb" id="1_c0s65"]
+
+[node name="sword_V2" instance=ExtResource("1_c0s65")]
+
+[node name="Icosphere" parent="." index="0"]
+transform = Transform3D(-1.08391e-09, 0, 0.0247969, 0, 0.0247969, 0, -0.0247969, 0, -1.08391e-09, 0, -0.273928, 0)

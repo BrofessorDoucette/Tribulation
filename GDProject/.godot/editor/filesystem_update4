@@ -8,3 +8,4 @@ res://levels/main_menu/overlay.tscn
 res://player/Player.gd
 res://player/PlayerInput.gd
 res://player/playerAnimations.res
+res://items/weapons/sword1/sword1.tscn
