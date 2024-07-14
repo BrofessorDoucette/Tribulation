@@ -9,8 +9,6 @@ extends MultiplayerSynchronizer
 # Synchronized property.
 @export var direction := Vector2()
 
-@export var seq : int = 0
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -25,10 +23,6 @@ func _input(event):
 			_player.CameraPivot.rotate(Vector3.UP, -1 * _player.MouseSensitivity * deg_to_rad(event.relative.x))
 		else:
 			_player.turn(event.relative.x)
-			
-			if not multiplayer.is_server():
-				_player.turn.rpc_id(1, event.relative.x)
-				
 			_player.CameraPivot.rotate(Vector3.RIGHT, -1 * _player.MouseSensitivity * deg_to_rad(event.relative.y))
 			_player.CameraPivot.rotation = Vector3(clamp(_player.CameraPivot.rotation.x, -PI/2, PI/2), 0, 0)
 			
@@ -66,5 +60,3 @@ func _physics_process(delta):
 		running = false
 	
 	direction = Input.get_vector("StrafeLeft", "StrafeRight", "StrafeForward", "StrafeBackward")
-	
-	seq += 1

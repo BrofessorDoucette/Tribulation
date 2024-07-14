@@ -31,14 +31,6 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
-var _frame = 0
-var _framesBetweenRecords = 1
-var _framesBetweenSyncRequest = 5
-var _seqRecorded = []
-var _positionsRecorded = []
-var _rotationYRecorded = []
-var _velocitiesRecorded = []
-
 func _ready():
 	
 	if playerID == multiplayer.get_unique_id():
@@ -50,36 +42,6 @@ func _ready():
 										MaxCameraOffsetMultiplier)
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
-		
-	
-	
-
-@rpc("authority", "call_remote", "unreliable")
-func sync(seq, serverPosition, serverRotationY, serverVelocity):
-	
-	if len(_seqRecorded) == 0:
-		return
-	
-	print("Syncing")
-	
-	var closest_index = _seqRecorded.bsearch(seq)
-	
-	if closest_index > len(_seqRecorded):
-		return
-		
-	print("Seq asked for : " + str(seq), "Seq found: " + str(_seqRecorded[closest_index]))
-	
-	var historicalPosition = _positionsRecorded[closest_index]
-	var historicalRotationY = _rotationYRecorded[closest_index]
-	var historicalVelocity = _velocitiesRecorded[closest_index]
-	
-	var dP = position - historicalPosition
-	var dR = rotation.y - historicalRotationY
-	var dV = velocity - historicalVelocity
-	
-	position = serverPosition + dP
-	rotation.y = serverRotationY + dR
-	velocity = serverVelocity + dV
 
 @rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
@@ -87,16 +49,7 @@ func turn(mouseDeltaX):
 	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
 func _physics_process(delta):
-			
-	_seqRecorded.append($PlayerInput.seq)
-	_positionsRecorded.append(position)
-	_rotationYRecorded.append(rotation.y)
-	_velocitiesRecorded.append(velocity)
-		
-	if multiplayer.is_server():
-		if _frame % (_framesBetweenSyncRequest) == 0:
-			sync.rpc($PlayerInput.seq, position, rotation.y, velocity)
-
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -120,7 +73,6 @@ func _physics_process(delta):
 	
 	move_and_slide()
 	
-	_frame += 1
 	
 	
 	
