@@ -62,6 +62,7 @@ func create_lobby():
 	multiplayer.multiplayer_peer = null
 	
 	if is_online:
+		
 		#Create a new lobby and connect to it
 		var peer = SteamMultiplayerPeer.new()
 		peer.create_lobby(SteamMultiplayerPeer.LOBBY_TYPE_FRIENDS_ONLY, _maxLobbySize)
