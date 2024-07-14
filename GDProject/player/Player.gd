@@ -86,23 +86,29 @@ func _physics_process(delta):
 
 		var direction = (transform.basis * Vector3($PlayerInput.direction.x, 0, $PlayerInput.direction.y)).normalized()
 		
-		_animationTree.set("parameters/Strafe/blend_position", direction)
-		
 		if direction:
+			
 			velocity.x = direction.x * _moveSpeed
 			velocity.z = direction.z * _moveSpeed
+			
 		else:
 			velocity.x = move_toward(velocity.x, 0, _moveSpeed)
 			velocity.z = move_toward(velocity.z, 0, _moveSpeed)
-		
+			
 		move_and_slide()
-	
+			
 	else:
 		
 		position = lerp(position, _targetPosition, 0.3)
 		velocity = lerp(velocity, _targetVelocity, 0.3)
 		rotation.y = _targetRotationY
-	
+		
+	if $PlayerInput.direction:
+		_animationTree.set("parameters/StateMachine/transition_request", "Strafe")
+	else:
+		_animationTree.set("parameters/StateMachine/transition_request", "Idle")
+		
+	_animationTree.set("parameters/Strafe/blend_position", $PlayerInput.direction)
 	
 	
 	
