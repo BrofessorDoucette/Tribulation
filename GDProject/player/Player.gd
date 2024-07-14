@@ -61,11 +61,12 @@ func sync(seq, serverPosition, serverRotationY, serverVelocity):
 		return
 	
 	var closest_index = _seqRecorded.bsearch(seq)
+	
+	print(seq, _seqRecorded[closest_index])
+	
 	var historicalPosition = _positionsRecorded[closest_index]
 	var historicalRotationY = _rotationYRecorded[closest_index]
 	var historicalVelocity = _velocitiesRecorded[closest_index]
-	
-	print(seq, serverPosition, _seqRecorded[closest_index], historicalPosition)
 	
 	var dP = position - historicalPosition
 	var dR = rotation.y - historicalRotationY
