@@ -29,6 +29,9 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("PlayerInput:running")
 properties/1/spawn = true
 properties/1/replication_mode = 2
+properties/2/path = NodePath("PlayerInput:jumping")
+properties/2/spawn = true
+properties/2/replication_mode = 2
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_cameraPivot", "_camera", "_rayCast")]
 script = ExtResource("1_jki30")
