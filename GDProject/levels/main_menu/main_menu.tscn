@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://tw0w68y5yj6v"]
+
+[ext_resource type="PackedScene" uid="uid://by4p1meyju1me" path="res://levels/main_menu/background.tscn" id="1_ccaqe"]
+[ext_resource type="PackedScene" uid="uid://cmnns6oji125y" path="res://levels/main_menu/overlay.tscn" id="1_n8rqa"]
+
+[node name="MainMenu" type="Node"]
+
+[node name="Background" parent="." instance=ExtResource("1_ccaqe")]
+
+[node name="Overlay" parent="." instance=ExtResource("1_n8rqa")]

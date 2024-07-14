@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmnns6oji125y"]
+
+[ext_resource type="Script" path="res://levels/main_menu/MainMenu.gd" id="1_wp0et"]
+[ext_resource type="PackedScene" uid="uid://dpgubgnmiabow" path="res://levels/dark_world_prototype/dark_world_prototype.tscn" id="2_ohxgs"]
+
+[node name="Overlay" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wp0et")
+_startScene = ExtResource("2_ohxgs")
+
+[node name="Left" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Middle" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="EmptyTop" type="Label" parent="Middle"]
+layout_mode = 2
+size_flags_vertical = 6
+size_flags_stretch_ratio = 14.63
+
+[node name="Start" type="Button" parent="Middle"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Start
+"
+
+[node name="EmptyBottom" type="Label" parent="Middle"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="Right" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Middle/Start" to="." method="_on_start_pressed"]

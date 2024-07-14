@@ -1,0 +1,38 @@
+[gd_scene load_steps=4 format=3 uid="uid://c87tjohvhe6k1"]
+
+[ext_resource type="Script" path="res://player/Player.gd" id="1_jki30"]
+[ext_resource type="PackedScene" uid="uid://804vkkkkxmu4" path="res://player/BasicCharacter_Rigged_Animated_Painted.glb" id="1_vyp1u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yohb"]
+radius = 0.2
+height = 1.5
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("_cameraPivot", "_camera", "_rayCast")]
+script = ExtResource("1_jki30")
+_mouseSensitivity = 0.4
+_cameraPivot = NodePath("CameraPivot")
+_camera = NodePath("CameraPivot/Camera")
+_rayCast = NodePath("CameraPivot/Camera/RayCast")
+_cameraOffset = Vector3(0.617, 0.271, 1.343)
+_defaultCameraOffsetMultiplier = 1.0
+_minCameraOffsetMultiplier = 0.5
+_maxCameraOffsetMultiplier = 2.0
+_cameraOffsetIncrement = 0.1
+
+[node name="Imported" parent="." instance=ExtResource("1_vyp1u")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_7yohb")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48202, 0)
+
+[node name="Camera" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.617, 0.271, 1.343)
+
+[node name="RayCast" type="RayCast3D" parent="CameraPivot/Camera"]
+target_position = Vector3(0, 0, -3)
+
+[editable path="Imported"]

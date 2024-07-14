@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bojtkjk7imjs0"]
+
+[ext_resource type="PackedScene" uid="uid://tw0w68y5yj6v" path="res://levels/main_menu/main_menu.tscn" id="1_5wv8t"]
+[ext_resource type="Script" path="res://levels/bootstrap/SceneManager.gd" id="1_nh5kf"]
+[ext_resource type="Script" path="res://levels/bootstrap/Bootstrap.gd" id="1_y7uu3"]
+[ext_resource type="Script" path="res://levels/bootstrap/NetworkManager.gd" id="4_h345w"]
+
+[node name="Bootstrap" type="Node3D" node_paths=PackedStringArray("_sceneManager", "_networkManager")]
+script = ExtResource("1_y7uu3")
+_sceneManager = NodePath("SceneManager")
+_networkManager = NodePath("NetworkManager")
+
+[node name="SceneManager" type="Node" parent="." node_paths=PackedStringArray("_networkManager", "_currentScene")]
+script = ExtResource("1_nh5kf")
+_networkManager = NodePath("../NetworkManager")
+_currentScene = NodePath("Current")
+
+[node name="Current" type="Node" parent="SceneManager"]
+
+[node name="MainMenu" parent="SceneManager/Current" instance=ExtResource("1_5wv8t")]
+
+[node name="NetworkManager" type="Node" parent="."]
+script = ExtResource("4_h345w")
+_debug = true
+_maxLobbySize = 4
