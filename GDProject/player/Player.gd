@@ -51,17 +51,23 @@ func _ready():
 										MaxCameraOffsetMultiplier)
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
+		
+	
 	
 
 @rpc("authority", "call_remote", "unreliable")
 func sync(serverTime, serverPosition, serverRotationY):
 	
-	var closest_index = _timesRecorded.bsearch(serverTime)
-	var historicalPosition = _positionsRecorded[closest_index]
-	var historicalRotationY = _rotationYRecorded[closest_index]
+	var latencyEstimated = _serverTime - serverTime
 	
+	print("Estimated Latency in milliseconds: " + latencyEstimated / 1000)
 	print("Server time requested: " + str(serverTime))
 	print("Latest time recorded: " + str(_timesRecorded[-1]))
+	print("Earliest time record: " + str(_timesRecorded[0]))
+	
+	var closest_index = _timesRecorded.bsearch(serverTime - latencyEstimated)
+	var historicalPosition = _positionsRecorded[closest_index]
+	var historicalRotationY = _rotationYRecorded[closest_index]
 	
 	var dP = serverPosition - historicalPosition
 	var dR = serverRotationY - historicalRotationY
