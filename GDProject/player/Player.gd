@@ -43,35 +43,36 @@ func _ready():
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
 
-@rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
 	
 	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
 func _physics_process(delta):
 	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-
-	# Handle jump.
-	if $PlayerInput.jumping and is_on_floor():
-		velocity.y = _jumpVelocity
+	if playerID == multiplayer.get_unique_id():
 		
-	if $PlayerInput.running:
-		_moveSpeed = _runSpeed
-	else:
-		_moveSpeed = _walkSpeed
+		# Add the gravity.
+		if not is_on_floor():
+			velocity.y -= gravity * delta
 
-	var direction = (transform.basis * Vector3($PlayerInput.direction.x, 0, $PlayerInput.direction.y)).normalized()
-	if direction:
-		velocity.x = direction.x * _moveSpeed
-		velocity.z = direction.z * _moveSpeed
-	else:
-		velocity.x = move_toward(velocity.x, 0, _moveSpeed)
-		velocity.z = move_toward(velocity.z, 0, _moveSpeed)
-	
-	move_and_slide()
+		# Handle jump.
+		if $PlayerInput.jumping and is_on_floor():
+			velocity.y = _jumpVelocity
+			
+		if $PlayerInput.running:
+			_moveSpeed = _runSpeed
+		else:
+			_moveSpeed = _walkSpeed
+
+		var direction = (transform.basis * Vector3($PlayerInput.direction.x, 0, $PlayerInput.direction.y)).normalized()
+		if direction:
+			velocity.x = direction.x * _moveSpeed
+			velocity.z = direction.z * _moveSpeed
+		else:
+			velocity.x = move_toward(velocity.x, 0, _moveSpeed)
+			velocity.z = move_toward(velocity.z, 0, _moveSpeed)
+		
+		move_and_slide()
 	
 	
 	
