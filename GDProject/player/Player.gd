@@ -31,7 +31,9 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		# Give authority over the player input to the appropriate peer.
 		$PlayerInput.set_multiplayer_authority(id)
 
-var NetworkTimeSynchronizer : TimeSynchronizer
+var NetworkTimeSynchronizer : TimeSynchronizer :
+	set(sync):
+		NetworkTimeSynchronizer = sync
 
 var _frame = 0
 var _framesBetweenRecords = 5
