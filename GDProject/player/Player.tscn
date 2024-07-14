@@ -1,10 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://c87tjohvhe6k1"]
+[gd_scene load_steps=16 format=3 uid="uid://c87tjohvhe6k1"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_jki30"]
 [ext_resource type="PackedScene" uid="uid://804vkkkkxmu4" path="res://player/BasicCharacter_Rigged_Animated_Painted.glb" id="1_vyp1u"]
 [ext_resource type="Script" path="res://player/PlayerInput.gd" id="3_6s5hy"]
 [ext_resource type="AnimationLibrary" uid="uid://c726gilkqsacx" path="res://player/playerAnimations.res" id="3_d1ci4"]
-[ext_resource type="PackedScene" uid="uid://m481y1yeh20k" path="res://items/weapons/sword1/sword1.tscn" id="5_hwmkv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yohb"]
 radius = 0.2
@@ -123,15 +122,12 @@ bones/14/scale = Vector3(1, 1, 1)
 bones/15/rotation = Quaternion(-0.0045022, -0.0112206, 0.716775, 0.6972)
 bones/15/scale = Vector3(1, 1, 1)
 bones/16/rotation = Quaternion(-0.0480844, -0.0958003, 0.638205, 0.762367)
-bones/16/scale = Vector3(1, 1, 1)
 bones/17/rotation = Quaternion(0.00313193, 0.000153169, -0.000550791, 0.999995)
 bones/17/scale = Vector3(1, 1, 1)
 bones/18/rotation = Quaternion(-0.0136286, -0.000160489, -0.0181196, 0.999743)
 bones/18/scale = Vector3(1, 1, 1)
 bones/19/rotation = Quaternion(0.0174065, 1.03855e-07, -0.0522624, 0.998482)
-bones/19/scale = Vector3(1, 1, 1)
 bones/20/rotation = Quaternion(-0.0383216, 1.87372e-08, 0.186744, 0.981661)
-bones/20/scale = Vector3(1, 1, 1)
 bones/21/rotation = Quaternion(0.692673, -3.16101e-08, 0.142143, 0.707107)
 bones/21/scale = Vector3(1, 1, 1)
 bones/22/rotation = Quaternion(0.774108, 0.0497561, 0.345052, 0.528412)
@@ -149,7 +145,6 @@ bones/28/scale = Vector3(1, 1, 1.0001)
 bones/29/rotation = Quaternion(-0.0260364, -0.0190549, 0.0147696, 0.99937)
 bones/30/scale = Vector3(1, 1, 1)
 bones/31/rotation = Quaternion(0.200482, 0.116795, 0.00443759, 0.972701)
-bones/31/scale = Vector3(1, 1, 1)
 bones/32/rotation = Quaternion(-0.0611878, 0.94061, -0.331329, 0.0415903)
 bones/33/position = Vector3(0.257567, 0.167389, -0.665291)
 bones/33/rotation = Quaternion(-0.693828, 0.274265, -0.213477, 0.630721)
@@ -202,14 +197,5 @@ parameters/StateMachine/current_state = "Idle"
 parameters/StateMachine/transition_request = ""
 parameters/StateMachine/current_index = 1
 parameters/Strafe/blend_position = Vector2(0, 0)
-
-[node name="RightHand" type="BoneAttachment3D" parent="."]
-transform = Transform3D(0.968273, -0.226514, -0.105539, 0.0948139, -0.0577476, 0.993819, -0.231209, -0.972295, -0.0344389, 0.236474, 0.716791, 0.0297033)
-bone_name = "Wield R"
-bone_idx = 21
-use_external_skeleton = true
-external_skeleton = NodePath("../Imported/Armature/Skeleton3D")
-
-[node name="sword_V2" parent="RightHand" instance=ExtResource("5_hwmkv")]
 
 [editable path="Imported"]

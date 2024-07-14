@@ -44,6 +44,7 @@ var _framesBetweenSync = 5
 func _ready():
 	
 	if playerID == multiplayer.get_unique_id():
+		
 		Camera.current = true
 	
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -65,6 +66,8 @@ func sync(newPosition, newVelocity, newRotationY):
 	_targetRotationY = newRotationY
 
 func _physics_process(delta):
+	
+	print(multiplayer.get_unique_id(), playerID)
 	
 	if playerID == multiplayer.get_unique_id():
 		
