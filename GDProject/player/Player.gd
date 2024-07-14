@@ -29,17 +29,20 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 	set(id):
 		playerID = id
 		# Give authority over the player input to the appropriate peer.
-		#$PlayerInput.set_multiplayer_authority(id)
+		$PlayerInput.set_multiplayer_authority(id)
 
 
 func _ready():
 	
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	_cameraOffsetMultiplier = clamp(_defaultCameraOffsetMultiplier,
-									_minCameraOffsetMultiplier,
-									_maxCameraOffsetMultiplier)
-									
-	_camera.position = _cameraOffset * _cameraOffsetMultiplier
+	if playerID == multiplayer.get_unique_id():
+		_camera.current = true
+	
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		_cameraOffsetMultiplier = clamp(_defaultCameraOffsetMultiplier,
+										_minCameraOffsetMultiplier,
+										_maxCameraOffsetMultiplier)
+										
+		_camera.position = _cameraOffset * _cameraOffsetMultiplier
 
 @rpc("call_remote", "reliable", "authority")
 func possess():
@@ -75,13 +78,6 @@ func _input(event):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 		else:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			
-	if Input.is_action_pressed("RpcTest"):
-		eatShit.rpc()
-		
-@rpc("authority", "call_remote", "reliable")
-func eatShit():
-	print("Eat shit")
 
 func _process(delta):
 	
@@ -96,19 +92,15 @@ func _physics_process(delta):
 		velocity.y -= gravity * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
+	if $PlayerInput.jumping and is_on_floor():
 		velocity.y = _jumpVelocity
 		
-	if Input.is_action_pressed("Run"):
+	if $PlayerInput.running:
 		_moveSpeed = _runSpeed
 	else:
 		_moveSpeed = _walkSpeed
-		
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var strafe_input = Input.get_vector("StrafeLeft", "StrafeRight", "StrafeForward", "StrafeBackward")
-	var direction = (transform.basis * Vector3(strafe_input.x, 0, strafe_input.y)).normalized()
+	var direction = (transform.basis * Vector3($PlayerInput.direction.x, 0, $PlayerInput.direction.y)).normalized()
 	if direction:
 		velocity.x = direction.x * _moveSpeed
 		velocity.z = direction.z * _moveSpeed
@@ -117,3 +109,6 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, _moveSpeed)
 	
 	move_and_slide()
+	
+	$PlayerInput.jumping = false
+	$PlayerInput.running = false

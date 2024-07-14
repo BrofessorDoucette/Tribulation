@@ -13,3 +13,4 @@ res://levels/bootstrap/LevelManager.gd
 res://levels/main_menu/MainMenu.gd
 res://levels/main_menu/OverlayMainMenu.gd
 res://levels/dark_world_prototype/dark_world_prototype.gd
+res://player/PlayerInput.gd

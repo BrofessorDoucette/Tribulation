@@ -32,8 +32,9 @@ _startScene = ExtResource("3_05jh2")
 _levelManager = NodePath("../../..")
 _networkManager = NodePath("../../../../NetworkManager")
 
-[node name="NetworkManager" type="Node" parent="."]
+[node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("_levelManager")]
 script = ExtResource("4_h345w")
+_levelManager = NodePath("../LevelManager")
 _debug = true
 _maxLobbySize = 4
 

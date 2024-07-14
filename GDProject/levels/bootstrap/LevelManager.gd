@@ -16,13 +16,13 @@ func start_game():
 
 func change_level(scene : Node):
 	
-	clear_scene()
+	clear_level()
 	
 	#Add the new scene
 	_networkSpawnPath.add_child(scene)
 	_currentLevel = scene
 	
-func clear_scene():
+func clear_level():
 	
 	#Delete the current scene
 	for i in range(0, _networkSpawnPath.get_child_count()):

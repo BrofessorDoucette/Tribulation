@@ -82,7 +82,7 @@ func _on_lobby_joined(lobby_id, permissions, locked, response):
 func _on_lobby_join_requested(lobby_id, friend_id):
 	print("Attempting to join " + Steam.getFriendPersonaName(friend_id) + "'s lobby! Lobby ID: " + str(lobby_id))
 	
-	_levelManager.clear_scene()
+	_levelManager.clear_level()
 	
 	multiplayer.multiplayer_peer = null
 	var peer = SteamMultiplayerPeer.new()
