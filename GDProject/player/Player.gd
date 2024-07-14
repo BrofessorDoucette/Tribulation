@@ -54,16 +54,17 @@ func _ready():
 	
 
 @rpc("authority", "call_remote", "unreliable")
-func sync_position(serverPosition):
-	position = serverPosition
+func sync(serverTime, serverPosition, serverRotationY):
 	
-#@rpc("authority", "call_local", "unreliable")
-#func sync_velocity(serverVelocity):
-#	velocity = serverVelocity
+	var closest_index = _timesRecorded.bsearch(serverTime)
+	var historicalPosition = _positionsRecorded[closest_index]
+	var historicalRotationY = _rotationYRecorded[closest_index]
 	
-#@rpc("authority", "call_local", "unreliable")
-#func sync_rotation(serverRotationY):
-#	rotation.y = serverRotationY
+	var dP = serverPosition - historicalPosition
+	var dR = serverRotationY - historicalRotationY
+	
+	position = position - dP
+	rotation.y = serverRotationY - dR
 
 @rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
@@ -86,7 +87,7 @@ func _physics_process(delta):
 		
 	if multiplayer.is_server():
 		if _frame % _framesBetweenSyncRequest == 0:
-			sync_position.rpc(position)
+			sync.rpc(_serverTime, position, rotation.y)
 
 	# Add the gravity.
 	if not is_on_floor():
