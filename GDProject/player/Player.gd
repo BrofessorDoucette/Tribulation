@@ -26,6 +26,7 @@ var CameraOffsetMultiplier : float
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@export_category("Networking")
 #Networking
 # Set by the authority, synchronized on spawn.
 @export var playerID := 1 :
@@ -37,6 +38,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var _frame = 0
 var _framesBetweenSync = 5
 
+@export_category("Animation")
+@export var _animationTree : AnimationTree
 
 func _ready():
 	
@@ -82,6 +85,9 @@ func _physics_process(delta):
 			_moveSpeed = _walkSpeed
 
 		var direction = (transform.basis * Vector3($PlayerInput.direction.x, 0, $PlayerInput.direction.y)).normalized()
+		
+		_animationTree.set("parameters/Strafe/blend_position", direction)
+		
 		if direction:
 			velocity.x = direction.x * _moveSpeed
 			velocity.z = direction.z * _moveSpeed
@@ -95,7 +101,7 @@ func _physics_process(delta):
 		
 		position = lerp(position, _targetPosition, 0.3)
 		velocity = lerp(velocity, _targetVelocity, 0.3)
-		rotation.y = lerp(rotation.y, _targetRotationY, 0.3)
+		rotation.y = _targetRotationY
 	
 	
 	

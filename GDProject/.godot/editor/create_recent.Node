@@ -1,4 +1,5 @@
 MultiplayerSynchronizer
+AnimationTree
 MultiplayerSpawner
 Node3D
 Node
@@ -11,4 +12,3 @@ Button
 VBoxContainer
 RayCast3D
 Camera3D
-OmniLight3D
