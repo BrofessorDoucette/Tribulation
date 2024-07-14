@@ -23,7 +23,6 @@ func add_player(id):
 	var new_player : Player = _playerScene.instantiate()
 	new_player.playerID = id
 	new_player.name = str(id)
-	new_player.NetworkTimeSynchronizer = _timeSynchronizer
 	
 	$Players.add_child(new_player, true)
 	

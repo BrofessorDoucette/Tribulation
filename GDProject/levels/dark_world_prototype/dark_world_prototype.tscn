@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dpgubgnmiabow"]
+[gd_scene load_steps=26 format=3 uid="uid://dpgubgnmiabow"]
 
 [ext_resource type="Terrain3DStorage" uid="uid://c21vsguvwn26x" path="res://levels/dark_world_prototype/terrain/terrain.res" id="1_s37ca"]
 [ext_resource type="Script" path="res://levels/dark_world_prototype/dark_world_prototype.gd" id="1_tuq1v"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dv4m3r5xln2nr" path="res://levels/dark_world_prototype/terrain/textures/rock_1/rock_1_Normal.png" id="7_ov33f"]
 [ext_resource type="Texture2D" uid="uid://bs56moab2llib" path="res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_packed_albedo.png" id="8_nl8fs"]
 [ext_resource type="Texture2D" uid="uid://c57tqgjcq3u5a" path="res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_Normal.png" id="9_k2p6g"]
-[ext_resource type="Script" path="res://levels/dark_world_prototype/TimeSynchronizer.gd" id="12_vefpm"]
 
 [sub_resource type="Gradient" id="Gradient_7tk8e"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -113,15 +112,10 @@ fog_light_color = Color(0.595178, 0.628666, 0.681288, 1)
 fog_light_energy = 0.01
 volumetric_fog_density = 0.005
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_6ul6w"]
-properties/0/path = NodePath("TimeSynchronizer:serverTime")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-
 [node name="WorldRoot" type="Node3D" node_paths=PackedStringArray("_timeSynchronizer")]
 script = ExtResource("1_tuq1v")
 _playerScene = ExtResource("2_07y53")
-_timeSynchronizer = NodePath("TimeSynchronizer")
+_timeSynchronizer = NodePath("")
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("1_s37ca")
@@ -145,7 +139,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 73.425, 170.399)
 _spawnable_scenes = PackedStringArray("res://player/Player.tscn")
 spawn_path = NodePath("../Players")
 spawn_limit = 4
-
-[node name="TimeSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_6ul6w")
-script = ExtResource("12_vefpm")
