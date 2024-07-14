@@ -35,7 +35,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 var _frame = 0
 var _framesBetweenRecords = 5
-var positionRecords = []
+var _framesBetweenSyncRequest = 60
+var _timesRecorded = []
+var _positionsRecorded = []
+var _rotationYRecorded = []
 
 func _ready():
 	
@@ -50,7 +53,7 @@ func _ready():
 		Camera.position = CameraOffset * CameraOffsetMultiplier
 	
 
-@rpc("authority", "call_local", "unreliable")
+@rpc("authority", "call_remote", "unreliable")
 func sync_position(serverPosition):
 	position = serverPosition
 	
@@ -73,8 +76,18 @@ func _physics_process(delta):
 		_serverTime = Time.get_ticks_usec()
 	
 	if _frame % 120 == 0:
-		print("Server Time: " + str(_serverTime))
-	
+		if playerID == multiplayer.get_unique_id():
+			print("Server Time: " + str(_serverTime))
+			
+	if _frame % _framesBetweenRecords == 0:
+		_timesRecorded.append(_serverTime)
+		_positionsRecorded.append(position)
+		_rotationYRecorded.append(rotation.y)
+		
+	if multiplayer.is_server():
+		if _frame % _framesBetweenSyncRequest == 0:
+			sync_position.rpc(position)
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
