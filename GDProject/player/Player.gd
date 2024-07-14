@@ -48,6 +48,10 @@ func _ready():
 @rpc("authority", "call_remote", "unreliable")
 func sync_position(serverPosition):
 	position = serverPosition
+	
+@rpc("authority", "call_remote", "unreliable")
+func sync_rotation(serverRotationY):
+	rotation.y = serverRotationY
 
 @rpc("any_peer", "call_local", "unreliable")
 func turn(mouseDeltaX):
@@ -56,9 +60,10 @@ func turn(mouseDeltaX):
 
 func _physics_process(delta):
 	
-	if frame % 100 == 0:
+	if frame % 10 == 0:
 		if multiplayer.is_server():
-			sync_position(position)
+			sync_position.rpc(position)
+			sync_rotation.rpc(rotation.y)
 	
 	# Add the gravity.
 	if not is_on_floor():
