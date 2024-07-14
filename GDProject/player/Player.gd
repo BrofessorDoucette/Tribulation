@@ -44,14 +44,10 @@ func _ready():
 										
 		Camera.position = CameraOffset * CameraOffsetMultiplier
 
-@rpc("call_remote", "reliable", "authority")
-func possess():
-	Camera.current = true
-
-@rpc("call_local", "unreliable")
-func mouse_motion(mouseDelta):
+@rpc("any_peer", "call_local", "unreliable")
+func turn(mouseDeltaX):
 	
-	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDelta.x))
+	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
 
 func _physics_process(delta):
 	

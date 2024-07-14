@@ -22,7 +22,11 @@ func _input(event):
 			
 			_player.CameraPivot.rotate(Vector3.UP, -1 * _player.MouseSensitivity * deg_to_rad(event.relative.x))
 		else:
-			_player.mouse_motion.rpc(event.relative)
+			_player.turn(event.relative.x)
+			
+			if not multiplayer.is_server():
+				_player.turn.rpc_id(1, event.relative.x)
+				
 			_player.CameraPivot.rotate(Vector3.RIGHT, -1 * _player.MouseSensitivity * deg_to_rad(event.relative.y))
 			_player.CameraPivot.rotation = Vector3(clamp(_player.CameraPivot.rotation.x, -PI/2, PI/2), 0, 0)
 			
