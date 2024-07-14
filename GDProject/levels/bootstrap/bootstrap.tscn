@@ -1,25 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://bojtkjk7imjs0"]
+[gd_scene load_steps=7 format=3 uid="uid://bojtkjk7imjs0"]
 
 [ext_resource type="PackedScene" uid="uid://tw0w68y5yj6v" path="res://levels/main_menu/main_menu.tscn" id="1_5wv8t"]
 [ext_resource type="Script" path="res://levels/bootstrap/SceneManager.gd" id="1_nh5kf"]
 [ext_resource type="Script" path="res://levels/bootstrap/Bootstrap.gd" id="1_y7uu3"]
+[ext_resource type="PackedScene" uid="uid://dpgubgnmiabow" path="res://levels/dark_world_prototype/dark_world_prototype.tscn" id="3_05jh2"]
 [ext_resource type="Script" path="res://levels/bootstrap/NetworkManager.gd" id="4_h345w"]
+[ext_resource type="PackedScene" uid="uid://c87tjohvhe6k1" path="res://player/Player.tscn" id="4_ywnnb"]
 
 [node name="Bootstrap" type="Node3D" node_paths=PackedStringArray("_sceneManager", "_networkManager")]
 script = ExtResource("1_y7uu3")
 _sceneManager = NodePath("SceneManager")
 _networkManager = NodePath("NetworkManager")
 
-[node name="SceneManager" type="Node" parent="." node_paths=PackedStringArray("_networkManager", "_currentScene")]
+[node name="SceneManager" type="Node" parent="." node_paths=PackedStringArray("_networkManager", "_networkSpawnPath")]
 script = ExtResource("1_nh5kf")
 _networkManager = NodePath("../NetworkManager")
-_currentScene = NodePath("Current")
+_networkSpawnPath = NodePath("NetworkSpawnPath")
+_startScene = ExtResource("3_05jh2")
+_playerScene = ExtResource("4_ywnnb")
 
-[node name="Current" type="Node" parent="SceneManager"]
+[node name="NetworkSpawnPath" type="Node" parent="SceneManager"]
 
-[node name="MainMenu" parent="SceneManager/Current" instance=ExtResource("1_5wv8t")]
+[node name="MainMenu" parent="SceneManager/NetworkSpawnPath" instance=ExtResource("1_5wv8t")]
 
-[node name="NetworkManager" type="Node" parent="."]
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="SceneManager"]
+_spawnable_scenes = PackedStringArray("res://levels/dark_world_prototype/dark_world_prototype.tscn")
+spawn_path = NodePath("../NetworkSpawnPath")
+
+[node name="NetworkManager" type="Node" parent="." node_paths=PackedStringArray("_sceneManager")]
 script = ExtResource("4_h345w")
+_sceneManager = NodePath("../SceneManager")
 _debug = true
 _maxLobbySize = 4

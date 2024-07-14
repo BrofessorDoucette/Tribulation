@@ -3,18 +3,34 @@ extends Node
 class_name SceneManager
 
 @export var _networkManager : NetworkManager
-@export var _currentScene : Node
+@export var _networkSpawnPath : Node
+var _currentScene : Node
 
-func change_scene(scene):
+@export var _startScene : PackedScene
+@export var _playerScene : PackedScene
+	
+func start_game():
+	
+	change_scene(_startScene.instantiate())
+	add_player()
+	
+
+func change_scene(scene : Node):
 	
 	if _networkManager.is_online:
 
 		_networkManager.create_lobby()
 		
-	
+
 	#Delete the current scene
-	for i in range(0, _currentScene.get_child_count()):
-		_currentScene.get_child(i).queue_free()
+	for i in range(0, _networkSpawnPath.get_child_count()):
+		_networkSpawnPath.get_child(i).queue_free()
 	
 	#Add the new scene
-	_currentScene.add_child(scene)
+	_networkSpawnPath.add_child(scene)
+	_currentScene = scene
+	
+func add_player():
+	
+	_currentScene.find_child("PlayerSpawn").add_child(_playerScene.instantiate())
+	

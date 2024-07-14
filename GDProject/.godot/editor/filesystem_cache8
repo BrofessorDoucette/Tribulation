@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1720912389
+::res://::1720931022
 icon.svg::CompressedTexture2D::2803145123602948150::1720896089::1720896099::1::::<><>::
 ::res://addons/::1720896377
 ::res://addons/terrain_3d/::1720896382
@@ -8,7 +8,7 @@ LICENSE.txt::TextFile::-1::1720896378::0::1::::<><>::
 plugin.cfg::TextFile::-1::1720896378::0::1::::<><>::
 README.md::TextFile::-1::1720896378::0::1::::<><>::
 terrain.gdextension::GDExtension::-1::1720896378::0::1::::<><>::
-::res://addons/terrain_3d/bin/::1720911331
+::res://addons/terrain_3d/bin/::1720931018
 ::res://addons/terrain_3d/bin/libterrain.macos.debug.framework/::1720896378
 ::res://addons/terrain_3d/bin/libterrain.macos.release.framework/::1720896378
 ::res://addons/terrain_3d/extras/::1720896380
@@ -60,9 +60,14 @@ importer.tscn::PackedScene::3158990868267418980::1720896382::0::1::::<><>::res:/
 ::res://addons/terrain_3d/utils/::1720896382
 terrain_3d_objects.gd::GDScript::-1::1720896382::0::1::::Terrain3DObjects<>Node3D<>::
 transform_changed_notifier.gd::GDScript::-1::1720896382::0::1::::<>Node3D<>::
-::res://levels/::1720911627
-::res://levels/dark_world_prototype/::1720912392
-dark_world_prototype.tscn::PackedScene::8225697433601857462::1720912392::0::1::::<><>::uid://c21vsguvwn26x::::res://levels/dark_world_prototype/terrain/terrain.res<>uid://00i2p6x7orax::::res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_packed_albedo.png<>uid://bcngb2adhw4ih::::res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_Normal.png<>uid://be6jwjwcen067::::res://levels/dark_world_prototype/terrain/textures/grass_1/grass_1_packed_albedo.png<>uid://n1c84858xj3o::::res://levels/dark_world_prototype/terrain/textures/grass_1/grass_1_Normal.png<>uid://3sx6lweh7ace::::res://levels/dark_world_prototype/terrain/textures/rock_1/rock_1_packed_albedo.png<>uid://dv4m3r5xln2nr::::res://levels/dark_world_prototype/terrain/textures/rock_1/rock_1_Normal.png<>uid://bs56moab2llib::::res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_packed_albedo.png<>uid://c57tqgjcq3u5a::::res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_Normal.png<>uid://c87tjohvhe6k1::::res://player/Player.tscn
+::res://levels/::1720912545
+::res://levels/bootstrap/::1720930998
+Bootstrap.gd::GDScript::-1::1720913763::0::1::::Bootstrap<>Node<>::
+bootstrap.tscn::PackedScene::3388815864837006593::1720930998::0::1::::<><>::uid://tw0w68y5yj6v::::res://levels/main_menu/main_menu.tscn<>res://levels/bootstrap/SceneManager.gd<>res://levels/bootstrap/Bootstrap.gd<>uid://dpgubgnmiabow::::res://levels/dark_world_prototype/dark_world_prototype.tscn<>res://levels/bootstrap/NetworkManager.gd<>uid://c87tjohvhe6k1::::res://player/Player.tscn
+NetworkManager.gd::GDScript::-1::1720929706::0::1::::NetworkManager<>Node<>::
+SceneManager.gd::GDScript::-1::1720930893::0::1::::SceneManager<>Node<>::
+::res://levels/dark_world_prototype/::1720930953
+dark_world_prototype.tscn::PackedScene::8225697433601857462::1720930953::0::1::::<><>::uid://c21vsguvwn26x::::res://levels/dark_world_prototype/terrain/terrain.res<>uid://00i2p6x7orax::::res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_packed_albedo.png<>uid://bcngb2adhw4ih::::res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_Normal.png<>uid://be6jwjwcen067::::res://levels/dark_world_prototype/terrain/textures/grass_1/grass_1_packed_albedo.png<>uid://n1c84858xj3o::::res://levels/dark_world_prototype/terrain/textures/grass_1/grass_1_Normal.png<>uid://3sx6lweh7ace::::res://levels/dark_world_prototype/terrain/textures/rock_1/rock_1_packed_albedo.png<>uid://dv4m3r5xln2nr::::res://levels/dark_world_prototype/terrain/textures/rock_1/rock_1_Normal.png<>uid://bs56moab2llib::::res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_packed_albedo.png<>uid://c57tqgjcq3u5a::::res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_Normal.png
 ::res://levels/dark_world_prototype/terrain/::1720911380
 terrain.res::Terrain3DStorage::6722921515377290249::1720911380::0::1::::<><>::
 ::res://levels/dark_world_prototype/terrain/textures/::1720900303
@@ -90,13 +95,13 @@ rock_2_Displacement.png::CompressedTexture2D::7994849419919034967::1720904632::1
 rock_2_Normal.png::CompressedTexture2D::6945749289378845100::1720900321::1720904927::1::::<><>::
 rock_2_packed_albedo.png::CompressedTexture2D::3713655593510960229::1720905081::1720905089::1::::<><>::
 rock_2_Roughness.png::CompressedTexture2D::6144342859779311064::1720904639::1720904654::1::::<><>::
-::res://levels/main_menu/::1720912491
-MainMenu.gd::GDScript::-1::1720912534::0::1::::<>HBoxContainer<>::
-overlay.tscn::PackedScene::5642767517313399920::1720912534::0::1::::<><>::res://levels/main_menu/MainMenu.gd<>uid://dpgubgnmiabow::::res://levels/dark_world_prototype/dark_world_prototype.tscn
-main_menu.tscn::PackedScene::1380563232330894903::1720912393::0::1::::<><>::uid://by4p1meyju1me::::res://levels/main_menu/background.tscn<>uid://cmnns6oji125y::::res://levels/main_menu/overlay.tscn
-background.tscn::PackedScene::4131777708969349172::1720912393::0::1::::<><>::
-::res://player/::1720912392
+::res://levels/main_menu/::1720930953
+background.tscn::PackedScene::4131777708969349172::1720930953::0::1::::<><>::
+MainMenu.gd::GDScript::-1::1720930392::0::1::::<>HBoxContainer<>::
+main_menu.tscn::PackedScene::1380563232330894903::1720930953::0::1::::<><>::uid://by4p1meyju1me::::res://levels/main_menu/background.tscn<>uid://cmnns6oji125y::::res://levels/main_menu/overlay.tscn
+overlay.tscn::PackedScene::5642767517313399920::1720930514::0::1::::<><>::res://levels/main_menu/MainMenu.gd<>uid://dpgubgnmiabow::::res://levels/dark_world_prototype/dark_world_prototype.tscn
+::res://player/::1720930953
 BasicCharacter_Rigged_Animated_Painted.glb::PackedScene::2369640119518975117::1705473240::1720901845::1::::<><>::uid://mt2n28tnws20::::res://player/BasicCharacter_Rigged_Animated_Painted_Sphere Base Color.png
 BasicCharacter_Rigged_Animated_Painted_Sphere Base Color.png::CompressedTexture2D::883153345099514007::1720901844::1720901845::1::::<><>::
-Player.gd::GDScript::-1::1720910222::0::1::::<>CharacterBody3D<>::
-Player.tscn::PackedScene::7156303737683115098::1720912392::0::1::::<><>::res://player/Player.gd<>uid://804vkkkkxmu4::::res://player/BasicCharacter_Rigged_Animated_Painted.glb
+Player.gd::GDScript::-1::1720928358::0::1::::<>CharacterBody3D<>::
+Player.tscn::PackedScene::7156303737683115098::1720930953::0::1::::<><>::res://player/Player.gd<>uid://804vkkkkxmu4::::res://player/BasicCharacter_Rigged_Animated_Painted.glb

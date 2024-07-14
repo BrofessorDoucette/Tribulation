@@ -14,4 +14,4 @@ func _process(delta):
 
 func _on_start_pressed():
 	var scene_manager : SceneManager = get_tree().root.get_node("Bootstrap/SceneManager")
-	scene_manager.change_scene(_startScene.instantiate())
+	scene_manager.start_game()

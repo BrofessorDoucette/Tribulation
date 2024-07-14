@@ -2,6 +2,8 @@ extends Node
 
 class_name NetworkManager
 
+@export var _sceneManager : SceneManager
+
 @export var _debug : bool
 @export var _maxLobbySize : int
 
@@ -20,7 +22,7 @@ func _ready():
 	Steam.join_requested.connect(_on_lobby_join_requested)
 	multiplayer.peer_connected.connect(_on_player_connected)
 	#multiplayer.peer_disconnected.connect(_on_player_disconnected)
-	#multiplayer.connected_to_server.connect(_on_connected_ok)
+	multiplayer.connected_to_server.connect(_on_connected_ok)
 	#multiplayer.connection_failed.connect(_on_connected_fail)
 	#multiplayer.server_disconnected.connect(_on_server_disconnected)
 
@@ -83,9 +85,13 @@ func _on_lobby_join_requested(lobby_id, friend_id):
 	var peer = SteamMultiplayerPeer.new()
 	peer.connect_lobby(lobby_id)
 	multiplayer.multiplayer_peer = peer
-	
+
+
 func _on_player_connected(id):
 	print("A player has connected. ID: " + str(id))
+	
+func _on_connected_ok():
+	print("Successfully Established Connection to Multiplayer Peer.")
 
 func _process(_delta: float) -> void:
 	

@@ -8,3 +8,4 @@
 [node name="Background" parent="." instance=ExtResource("1_ccaqe")]
 
 [node name="Overlay" parent="." instance=ExtResource("1_n8rqa")]
+_startScene = null

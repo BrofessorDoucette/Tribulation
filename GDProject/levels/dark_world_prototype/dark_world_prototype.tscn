@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dpgubgnmiabow"]
+[gd_scene load_steps=24 format=3 uid="uid://dpgubgnmiabow"]
 
 [ext_resource type="Terrain3DStorage" uid="uid://c21vsguvwn26x" path="res://levels/dark_world_prototype/terrain/terrain.res" id="1_s37ca"]
 [ext_resource type="Texture2D" uid="uid://00i2p6x7orax" path="res://levels/dark_world_prototype/terrain/textures/dirt_1/dirt_1_packed_albedo.png" id="2_qr8bd"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dv4m3r5xln2nr" path="res://levels/dark_world_prototype/terrain/textures/rock_1/rock_1_Normal.png" id="7_ov33f"]
 [ext_resource type="Texture2D" uid="uid://bs56moab2llib" path="res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_packed_albedo.png" id="8_nl8fs"]
 [ext_resource type="Texture2D" uid="uid://c57tqgjcq3u5a" path="res://levels/dark_world_prototype/terrain/textures/rock_2/rock_2_Normal.png" id="9_k2p6g"]
-[ext_resource type="PackedScene" uid="uid://c87tjohvhe6k1" path="res://player/Player.tscn" id="10_memxp"]
 
 [sub_resource type="Gradient" id="Gradient_7tk8e"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -128,8 +127,5 @@ transform = Transform3D(1, 0, 0, 0, 0.720975, 0.692962, 0, -0.692962, 0.720975, 
 shadow_enabled = true
 directional_shadow_max_distance = 500.0
 
-[node name="Player" parent="." instance=ExtResource("10_memxp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.3557, 0)
-_mouseSensitivity = 0.2
-_runSpeed = 8.0
-_jumpVelocity = 6.0
+[node name="PlayerSpawn" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 43.5971, 170.399)
