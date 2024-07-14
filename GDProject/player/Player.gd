@@ -60,9 +60,14 @@ func sync(seq, serverPosition, serverRotationY, serverVelocity):
 	if len(_seqRecorded) == 0:
 		return
 	
+	print("Syncing")
+	
 	var closest_index = _seqRecorded.bsearch(seq)
 	
-	print(seq, _seqRecorded[closest_index])
+	if closest_index > len(_seqRecorded):
+		return
+		
+	print("Seq asked for : " + str(seq), "Seq found: " + str(_seqRecorded[closest_index]))
 	
 	var historicalPosition = _positionsRecorded[closest_index]
 	var historicalRotationY = _rotationYRecorded[closest_index]
