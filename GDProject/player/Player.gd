@@ -43,6 +43,12 @@ func _ready():
 										_maxCameraOffsetMultiplier)
 										
 		_camera.position = _cameraOffset * _cameraOffsetMultiplier
+		
+		set_process_input(true)
+	
+	else:
+		
+		set_process_input(false)
 
 @rpc("call_remote", "reliable", "authority")
 func possess():
