@@ -44,6 +44,9 @@ func _ready():
 		$PlayerInput.set_multiplayer_authority(playerID)
 	
 	if playerID == multiplayer.get_unique_id():
+		
+		print("Ran this")
+		
 		Camera.current = true
 			
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

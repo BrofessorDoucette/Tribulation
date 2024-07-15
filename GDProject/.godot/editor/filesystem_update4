@@ -7,3 +7,4 @@ res://levels/bootstrap/bootstrap.tscn
 res://levels/main_menu/overlay.tscn
 res://items/weapons/sword1/sword1.tscn
 res://player/Player.gd
+res://player/PlayerInput.gd
