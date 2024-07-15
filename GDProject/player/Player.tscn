@@ -188,9 +188,6 @@ replication_config = SubResource("SceneReplicationConfig_epx64")
 replication_config = SubResource("SceneReplicationConfig_y6jru")
 script = ExtResource("3_6s5hy")
 _player = NodePath("..")
-jumping = null
-running = null
-direction = null
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("../Imported")

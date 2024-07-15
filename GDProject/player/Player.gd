@@ -29,7 +29,10 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("Networking")
 #Networking
 # Set by the authority, synchronized on spawn.
-@export var playerID : int
+@export var playerID := 1 :
+	set(id):
+		playerID = id
+		$PlayerInput.set_multiplayer_authority(id)
 		
 var _frame = 0
 var _framesBetweenSync = 2
@@ -39,9 +42,6 @@ var _framesBetweenSync = 2
 
 
 func _ready():
-	
-	if multiplayer.is_server():
-		$PlayerInput.set_multiplayer_authority(playerID)
 		
 	if playerID == multiplayer.get_unique_id():
 		
