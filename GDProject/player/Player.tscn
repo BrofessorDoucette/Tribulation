@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://c87tjohvhe6k1"]
+[gd_scene load_steps=17 format=3 uid="uid://c87tjohvhe6k1"]
 
 [ext_resource type="Script" path="res://player/Player.gd" id="1_jki30"]
 [ext_resource type="PackedScene" uid="uid://804vkkkkxmu4" path="res://player/BasicCharacter_Rigged_Animated_Painted.glb" id="1_vyp1u"]
 [ext_resource type="Script" path="res://player/PlayerInput.gd" id="3_6s5hy"]
 [ext_resource type="AnimationLibrary" uid="uid://c726gilkqsacx" path="res://player/playerAnimations.res" id="3_d1ci4"]
+[ext_resource type="PackedScene" uid="uid://m481y1yeh20k" path="res://items/weapons/sword1/sword1.tscn" id="5_hwmkv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7yohb"]
 radius = 0.2
@@ -197,5 +198,21 @@ parameters/StateMachine/current_state = "Idle"
 parameters/StateMachine/transition_request = ""
 parameters/StateMachine/current_index = 1
 parameters/Strafe/blend_position = Vector2(0, 0)
+
+[node name="LeftHand" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.963435, 0.253064, 0.0880456, -0.0879733, -0.0116245, 0.996055, 0.253089, -0.96738, 0.0110633, -0.231765, 0.722061, 0.00435724)
+bone_name = "Wield L"
+bone_idx = 10
+use_external_skeleton = true
+external_skeleton = NodePath("../Imported/Armature/Skeleton3D")
+
+[node name="RightHand" type="BoneAttachment3D" parent="."]
+transform = Transform3D(0.968273, -0.226514, -0.105539, 0.0948138, -0.0577486, 0.993819, -0.231209, -0.972295, -0.0344399, 0.236474, 0.716791, 0.0297027)
+bone_name = "Wield R"
+bone_idx = 21
+use_external_skeleton = true
+external_skeleton = NodePath("../Imported/Armature/Skeleton3D")
+
+[node name="sword_V2" parent="RightHand" instance=ExtResource("5_hwmkv")]
 
 [editable path="Imported"]
