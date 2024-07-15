@@ -109,5 +109,7 @@ func _physics_process(delta):
 		
 	_animationTree.set("parameters/Strafe/blend_position", $PlayerInput.direction)
 	
+	_frame += 1
+	
 	
 	
