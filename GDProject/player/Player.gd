@@ -29,17 +29,18 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("Networking")
 #Networking
 # Set by the authority, synchronized on spawn.
-@export var playerID : int :
-	set(id):
-		playerID = id
-		# Give authority over the player input to the appropriate peer.
-		$PlayerInput.set_multiplayer_authority(id)
+@export var playerID : int
 		
 var _frame = 0
 var _framesBetweenSync = 10
 
 @export_category("Animation")
 @export var _animationTree : AnimationTree
+
+
+func _ready():
+	
+	$PlayerInput.set_multiplayer_authority(playerID)
 
 func turn(mouseDeltaX):
 	
@@ -108,8 +109,6 @@ func _physics_process(delta):
 		_animationTree.set("parameters/StateMachine/transition_request", "Idle")
 		
 	_animationTree.set("parameters/Strafe/blend_position", $PlayerInput.direction)
-	
-	_frame += 1
 	
 	
 	
