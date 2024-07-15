@@ -42,6 +42,17 @@ func _ready():
 	
 	if multiplayer.is_server():
 		$PlayerInput.set_multiplayer_authority(playerID)
+		
+	if playerID == multiplayer.get_unique_id():
+		
+		Camera.current = true
+				
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
+										MinCameraOffsetMultiplier,
+										MaxCameraOffsetMultiplier)
+												
+		Camera.position = CameraOffset * CameraOffsetMultiplier
 
 func turn(mouseDeltaX):
 	

@@ -177,7 +177,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48202, 0)
 
 [node name="Camera" type="Camera3D" parent="CameraPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.617, 0.271, 1.343)
-current = true
 
 [node name="RayCast" type="RayCast3D" parent="CameraPivot/Camera"]
 target_position = Vector3(0, 0, -3)
@@ -189,6 +188,9 @@ replication_config = SubResource("SceneReplicationConfig_epx64")
 replication_config = SubResource("SceneReplicationConfig_y6jru")
 script = ExtResource("3_6s5hy")
 _player = NodePath("..")
+jumping = null
+running = null
+direction = null
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 root_node = NodePath("../Imported")
