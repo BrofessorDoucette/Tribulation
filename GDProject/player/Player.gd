@@ -32,7 +32,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export var playerID : int
 		
 var _frame = 0
-var _framesBetweenSync = 10
+var _framesBetweenSync = 5
 
 @export_category("Animation")
 @export var _animationTree : AnimationTree
@@ -70,6 +70,8 @@ func sync(newPosition, newVelocity, newRotationY):
 func _physics_process(delta):
 	
 	if playerID == multiplayer.get_unique_id():
+		
+		Camera.current = true
 		
 		if _frame % _framesBetweenSync == 0:
 			sync.rpc(position, velocity, rotation.y)
