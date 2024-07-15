@@ -41,19 +41,6 @@ var _framesBetweenSync = 5
 @export_category("Animation")
 @export var _animationTree : AnimationTree
 
-func _ready():
-	
-	if playerID == multiplayer.get_unique_id():
-		
-		Camera.current = true
-	
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
-										MinCameraOffsetMultiplier,
-										MaxCameraOffsetMultiplier)
-										
-		Camera.position = CameraOffset * CameraOffsetMultiplier
-
 func turn(mouseDeltaX):
 	
 	rotate_y(-1 * MouseSensitivity * deg_to_rad(mouseDeltaX))
@@ -70,6 +57,13 @@ func _physics_process(delta):
 	if playerID == multiplayer.get_unique_id():
 		
 		Camera.current = true
+		
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
+										MinCameraOffsetMultiplier,
+										MaxCameraOffsetMultiplier)
+										
+		Camera.position = CameraOffset * CameraOffsetMultiplier
 		
 		if _frame % _framesBetweenSync == 0:
 			sync.rpc(position, velocity, rotation.y)
