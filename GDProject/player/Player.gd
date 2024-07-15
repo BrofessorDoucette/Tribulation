@@ -56,14 +56,16 @@ func _physics_process(delta):
 	
 	if playerID == multiplayer.get_unique_id():
 		
-		Camera.current = true
-		
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
-										MinCameraOffsetMultiplier,
-										MaxCameraOffsetMultiplier)
-										
-		Camera.position = CameraOffset * CameraOffsetMultiplier
+		if _frame == 0:
+			
+			Camera.current = true
+			
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
+											MinCameraOffsetMultiplier,
+											MaxCameraOffsetMultiplier)
+											
+			Camera.position = CameraOffset * CameraOffsetMultiplier
 		
 		if _frame % _framesBetweenSync == 0:
 			sync.rpc(position, velocity, rotation.y)
