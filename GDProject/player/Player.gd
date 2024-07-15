@@ -29,7 +29,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @export_category("Networking")
 #Networking
 # Set by the authority, synchronized on spawn.
-@export var playerID := 1 :
+@export var playerID : int :
 	set(id):
 		playerID = id
 		# Give authority over the player input to the appropriate peer.
