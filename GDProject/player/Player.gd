@@ -40,7 +40,18 @@ var _framesBetweenSync = 10
 
 func _ready():
 	
-	$PlayerInput.set_multiplayer_authority(playerID)
+	if multiplayer.is_server():
+		$PlayerInput.set_multiplayer_authority(playerID)
+	
+	if playerID == multiplayer.get_unique_id():
+		Camera.current = true
+			
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
+											MinCameraOffsetMultiplier,
+											MaxCameraOffsetMultiplier)
+											
+		Camera.position = CameraOffset * CameraOffsetMultiplier
 
 func turn(mouseDeltaX):
 	
@@ -56,17 +67,6 @@ func sync(newPosition, newVelocity, newRotationY):
 func _physics_process(delta):
 	
 	if playerID == multiplayer.get_unique_id():
-		
-		if _frame == 0:
-			
-			Camera.current = true
-			
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
-											MinCameraOffsetMultiplier,
-											MaxCameraOffsetMultiplier)
-											
-			Camera.position = CameraOffset * CameraOffsetMultiplier
 		
 		if _frame % _framesBetweenSync == 0:
 			sync.rpc(position, velocity, rotation.y)
@@ -110,5 +110,6 @@ func _physics_process(delta):
 		
 	_animationTree.set("parameters/Strafe/blend_position", $PlayerInput.direction)
 	
+	_frame += 1
 	
 	
