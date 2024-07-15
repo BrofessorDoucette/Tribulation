@@ -42,19 +42,6 @@ func _ready():
 	
 	if multiplayer.is_server():
 		$PlayerInput.set_multiplayer_authority(playerID)
-	
-	if playerID == multiplayer.get_unique_id():
-		
-		print("Ran this")
-		
-		Camera.current = true
-			
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		CameraOffsetMultiplier = clamp(DefaultCameraOffsetMultiplier,
-											MinCameraOffsetMultiplier,
-											MaxCameraOffsetMultiplier)
-											
-		Camera.position = CameraOffset * CameraOffsetMultiplier
 
 func turn(mouseDeltaX):
 	
@@ -70,9 +57,6 @@ func sync(newPosition, newVelocity, newRotationY):
 func _physics_process(delta):
 	
 	if playerID == multiplayer.get_unique_id():
-		
-		if _frame == 0:
-			Camera.current = true
 		
 		if _frame % _framesBetweenSync == 0:
 			sync.rpc(position, velocity, rotation.y)

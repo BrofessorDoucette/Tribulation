@@ -9,6 +9,16 @@ extends MultiplayerSynchronizer
 # Synchronized property.
 @export var direction := Vector2()
 
+func _ready():
+	
+	_player.Camera.current = true
+			
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	_player.CameraOffsetMultiplier = clamp(_player.DefaultCameraOffsetMultiplier,
+											_player.MinCameraOffsetMultiplier,
+											_player.MaxCameraOffsetMultiplier)
+											
+	_player.Camera.position = _player.CameraOffset * _player.CameraOffsetMultiplier
 
 func _input(event):
 	
