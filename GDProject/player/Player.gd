@@ -36,7 +36,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 		$PlayerInput.set_multiplayer_authority(id)
 		
 var _frame = 0
-var _framesBetweenSync = 5
+var _framesBetweenSync = 10
 
 @export_category("Animation")
 @export var _animationTree : AnimationTree
