@@ -2,7 +2,7 @@ An attempt at another full fledged game in Godot. In this one I believe I had go
 
 Title Screen:
 
-<img src="TribulationExamplePhoto.png" alt="drawing" width="800"/>
+<img src="TitleScreen.png" alt="drawing" width="800"/>
 
 Gameplay:
 
